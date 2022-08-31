@@ -70,4 +70,12 @@
   </div>
 </div>
 </div>
+<script>
+  let shipping = '{{order.shipping}}'
+  console.log(shipping)
+
+  if (shipping == 'False') {
+    document.getElementById('shipping-info').innerHTML = ''
+  }
+</script>
 {% endblock content %}
