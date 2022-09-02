@@ -28,6 +28,25 @@
       return cookieValue;
     }
     let csrftoken = getToken('csrftoken')
+
+    function getCookie(name) {
+      let cookieArray = document.cookie.split(";")
+
+      for (i = 0; i < cookieArray.length; i++) {
+        let cookiePair = cookieArray[i].split("=")
+        if (name == cookiePair[0].trim()) {
+          return decodeURIComponent(cookiePair[1])
+        }
+      }
+      return null;
+    }
+    let cart = JSON.parse(getCookie('cart'))
+    if (cart == undefined) {
+      cart = {}
+      console.log('cart was created')
+      document.cookie(samesite = None) = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+    }
+    console.log('Cart:', cart)
   </script>
 
 
