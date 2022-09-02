@@ -87,7 +87,7 @@
 
   if (user != 'AnonymousUser') {
     document.getElementById('user-info').innerHTML = ''
-    document.getElementById('logged-in-user').classList.remove('hidden')
+
   }
 
   if (shipping == 'False' && user != 'AnonymousUser') {
@@ -131,6 +131,8 @@
       userFormData.name = form.name.value
       userFormData.email = form.email.value
     }
+    console.log('Shipping Info:', shippingInfo)
+    console.log('User Info:', userFormData)
 
     let url = '/process_order/'
 
