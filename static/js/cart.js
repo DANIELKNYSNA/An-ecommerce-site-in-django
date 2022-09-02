@@ -8,12 +8,34 @@ for (let i = 0; i < updateBtns.length; i++) {
 
     console.log('User:', user)
     if (user === 'AnonymousUser') {
-      console.log('Not Logged in...')
+      addCookieItem(productId, action)
     } else {
       updateUserOrder(productId, action)
     }
   })
 }
+
+function addCookieItem(productId, action) {
+  console.log('Not Logged in...')
+  if (action == 'add') {
+    if (cart[productId] == undefined) {
+      cart[productId] = { 'quantity': 1 }
+    } else {
+      cart[productId]['quantity'] += 1
+    }
+  }
+  if (action == 'remove') {
+    cart[productId]['quantity'] -= 1;
+    if (cart[productId] <= 0) {
+      console.log('Item should be deleted')
+      delete cart[productId]
+    }
+  }
+  console.log('Cart:', cart)
+  document.cookie(SameSite = None) = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+  location.reload()
+}
+
 
 function updateUserOrder(productId, action) {
   console.log('User is authenticated, sending data...')
