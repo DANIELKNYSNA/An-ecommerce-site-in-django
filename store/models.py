@@ -1,4 +1,3 @@
-from pyexpat import model
 from django.db import models
 from django.contrib.auth.models import User
 # Create your models here.
@@ -14,9 +13,12 @@ class Customer(models.Model):
 class Product(models.Model):
   name = models.CharField(max_length=255, null=True)
   price = models.DecimalField(max_digits=10, decimal_places=2)
-  digital = models.BooleanField(default=False, null=True, blank=False)
+  digital = models.BooleanField(default=False, null=True, blank=True)
   image = models.ImageField(null=True, blank=True)
   
+  def __str__(self) -> str:
+    return self.name
+ 
   @property
   def imageUrl(self):
     imageUrl = self.image.url
@@ -26,8 +28,6 @@ class Product(models.Model):
       url = ''
     return url
 
-  def __str__(self) -> str:
-    return self.name
 
 class Order(models.Model):
   customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
@@ -41,10 +41,10 @@ class Order(models.Model):
   @property
   def shipping(self):
     shipping = False
-    orderitems: OrderItem = self.orderitem_set.all()
+    orderitems = self.orderitem_set.all()
     for i in orderitems:
       if i.product.digital == False:
-        shipping = True
+        shipping == True
     return shipping
 
 
